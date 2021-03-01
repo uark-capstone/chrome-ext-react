@@ -4,11 +4,11 @@ import { Button, Form, Spinner } from "react-bootstrap";
 import Logo from './logo.jpeg';
 
 const SignIn = () => {
-  let isLocal = process.env.REACT_APP_IS_LOCAL;
-  let DESTINATION_URL = (isLocal) ? 'http://localhost:3000/monitor/' : 'http://ct10.ddns.uark.edu:5001/monitor/';
-  let BACKEND_URL = (isLocal) ? 'http://0.0.0.0:8080/' : 'http://ct10.ddns.uark.edu:8080/';
+  let DESTINATION_URL = process.env.REACT_APP_DESTINATION_URL;
+  let BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  
 
-  const myStorage = window.localStorage;
+
   const [email, setEmail] = useState("af027@uark.edu");
   const [password, setPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
@@ -97,6 +97,8 @@ const SignIn = () => {
         </Form>
       </div>
       {result}
+      {DESTINATION_URL}
+      {BACKEND_URL}
     </div>
   );
 };
