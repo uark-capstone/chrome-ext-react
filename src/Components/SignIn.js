@@ -2,20 +2,15 @@
 import { React, useState, useEffect } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import Logo from './logo.jpeg';
-// import { Link } from 'react-router-dom';
-
-URL = "https://learn.uark.edu/";
-//URL="http://localhost:3000/";
-// const openPinnedTab = () => {
-// chrome.tabs.create({ url: URL, active: false, pinned: true });
-// window.close();
-// };
 
 const SignIn = () => {
+  let isLocal = process.env.REACT_APP_IS_LOCAL;
+  let DESTINATION_URL = (isLocal) ? 'http://localhost:3000/monitor/' : 'http://ct10.ddns.uark.edu:5001/monitor/';
+  let BACKEND_URL = (isLocal) ? 'http://0.0.0.0:8080/' : 'http://ct10.ddns.uark.edu:8080/';
+
   const myStorage = window.localStorage;
   const [email, setEmail] = useState("af027@uark.edu");
   const [password, setPassword] = useState("password");
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState("");
 
@@ -31,29 +26,30 @@ const SignIn = () => {
   const login = (e) => {
     e.preventDefault();
 
-    console.log("entered");
-    console.log("email", email);
-    console.log("password", password);
-
-    fetch(`http://localhost:8080/user/login`, requestOptions)
+    fetch( BACKEND_URL + `user/login`, requestOptions)
       .then((res) => {
-        console.log("res.status: ", res.status);
         if (res.status === 200) {
-          var response = res.text();
-          console.log(response);
-          myStorage.setItem("logged_in", true);
-          setIsLoading(false);
-          chrome.tabs.create({ url: URL, active: false, pinned: true });
-          window.close();
+          return res.json();
         }
-        if (res.status === 500) {
-          console.log("error ");
+        if (res.status === 401) {
+          console.log("Error logging in");
           setResult("Wrong credentials!");
-          myStorage.setItem("logged_in", false);
+          
+          return null;
         }
       })
-      .catch((error) => console.log("HELLOOO", error));
+      .then(responseData => {
+        if(responseData != null){
+          let destinationURL = DESTINATION_URL + responseData.id + '/' + '1';
+ 
+          chrome.tabs.create({ url: destinationURL, active: false, pinned: true });
+          window.close();
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => console.error(error));
   };
+
   return (
     <div>
       <div style={{ width: "500px" }}>
@@ -62,7 +58,6 @@ const SignIn = () => {
           src={Logo}
           height="100"
           width="100"
-          
         />
         </div>
         
@@ -90,9 +85,7 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          {/* <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group> */}
+
           <Button
             style={{ position: "absolute", left: "200px" }}
             variant="primary"

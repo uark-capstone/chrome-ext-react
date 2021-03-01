@@ -14,8 +14,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_IS_LOCAL=true react-scripts start",
+    "start-live": "REACT_APP_IS_LOCAL=false react-scripts start",
+    "build": "REACT_APP_IS_LOCAL=true react-scripts build",
+    "build-live": "REACT_APP_IS_LOCAL=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
