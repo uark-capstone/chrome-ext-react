@@ -1,6 +1,6 @@
 /*global chrome*/
 import { React, useState, useEffect } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
+import { Button, Form, Dropdown } from "react-bootstrap";
 import Logo from './logo.jpeg';
 
 const SignIn = () => {
@@ -12,6 +12,8 @@ const SignIn = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [showBuildInfo, setShowBuild] = useState(false);
+
+  const [lectures, setLectures] = useState([]);
 
   const [email, setEmail] = useState("af027@uark.edu");
   const [password, setPassword] = useState("password");
@@ -50,11 +52,24 @@ const SignIn = () => {
       .catch((error) => console.error(error));
   };
 
+  const getAllLectures = () => {
+    fetch( BACKEND_URL + `lecture/getAllLectures`)
+    .then((res) => {
+      return res.json();
+    })
+    .then(responseData => {
+      setLectures(responseData);  
+    })
+    .catch((error) => console.error(error));
+  }
+
   const joinLecture = (e) => {
     let destinationURL = DESTINATION_URL + userID + '/' + lectureID;
     chrome.tabs.create({ url: destinationURL, active: false, pinned: true });
     window.close();
   }
+
+  getAllLectures();
 
   return (
     <div>
@@ -71,13 +86,20 @@ const SignIn = () => {
           {isLoggedIn
           ? <Form>
               <Form.Group>
-                <Form.Label>Lecture ID</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Enter Lecture Id"
-                    value={lectureID}
-                    onChange={(e) => setLectureID(e.target.value)}
-                  />
+                <Dropdown >
+                  <Dropdown.Toggle>
+                    {lectureID != -1 ? ('Lecture: ' + lectureID) : 'Select Lecture'}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="dropdown-menu">
+                    {lectures.map((eachLecture, idx) => (
+                      <Dropdown.Item 
+                        key={idx}
+                        onClick={(e) => setLectureID(eachLecture.id)}>
+                        {eachLecture.lectureName}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
               </Form.Group>
 
               <Button
