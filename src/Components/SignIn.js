@@ -50,6 +50,8 @@ const SignIn = () => {
         }        
       })
       .catch((error) => console.error(error));
+
+      getAllLectures();
   };
 
   const getAllLectures = () => {
@@ -64,9 +66,11 @@ const SignIn = () => {
   }
 
   const joinLecture = (e) => {
-    let destinationURL = DESTINATION_URL + userID + '/' + lectureID;
-    chrome.tabs.create({ url: destinationURL, active: false, pinned: true });
-    window.close();
+    if(lectureID != -1){
+      let destinationURL = DESTINATION_URL + userID + '/' + lectureID;
+      chrome.tabs.create({ url: destinationURL, active: false, pinned: true });
+      window.close();
+    }
   }
 
   getAllLectures();
