@@ -6,6 +6,8 @@ import Logo from './logo.jpeg';
 const SignIn = () => {
   let DESTINATION_URL = process.env.REACT_APP_DESTINATION_URL;
   let BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+ 
   
   const [userID, setUserID] = useState(-1);
   const [lectureID, setLectureID] = useState(-1);
@@ -15,8 +17,8 @@ const SignIn = () => {
 
   const [lectures, setLectures] = useState([]);
 
-  const [email, setEmail] = useState("af027@uark.edu");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("teacher@email.com");
+  const [password, setPassword] = useState("12345");
   const [result, setResult] = useState("");
 
   const requestOptions = {
