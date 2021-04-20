@@ -12,5 +12,5 @@
     "36": "logo36.png"
   },
   "permissions": ["activeTab", "tabs"]
-  
+
 }
