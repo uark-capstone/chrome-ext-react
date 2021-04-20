@@ -1,0 +1,73 @@
+
+:root {
+    /*Primary Colors: */
+    --red: #ff602a;
+    --blue: #2a48ff;
+    --pink: #d518d5;
+    --black: #000000;
+    --yellow: #ffdb00;
+
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
+    sans-serif;
+    -webkit-border-before-width: 100px;
+  -webkit-font-smoothing: antialiased;
+
+  -webkit-border-radius: 0px 10px 0px 10px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.btn-primary {
+    font-family:'Roboto',
+    sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    border-radius: 0px;
+    border-radius: 0px 10px 0px 10px;
+    background-color: var(--blue);
+}
+
+.btn-primary:hover {
+    border-radius: 0px;
+    border-radius: 1px 20px 1px 20px;
+    background-color: var(--red);
+    border-color: var(--red);
+    box-shadow: 0px 10px var(--pink);
+    transition-timing-function: ease-in;
+}
+
+.form-group{
+    
+    font-family:'Roboto',
+    sans-serif;
+}
+
+
+.label {
+    text-align: center;
+}
+.form-control {
+    font-family:'Roboto',
+    sans-serif;
+
+    border-radius: 0px 10px 0px 10px;
+}
+
+.form-control:hover {
+    font-family:'Roboto',
+    sans-serif;
+    border-radius: 0px 20px 0px 20px;
+
+}
+
+
+

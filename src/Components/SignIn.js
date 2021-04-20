@@ -1,7 +1,8 @@
 /*global chrome*/
 import { React, useState, useEffect } from "react";
-import { Button, Form, Dropdown } from "react-bootstrap";
+import {Button, Form, Dropdown } from "react-bootstrap";
 import Logo from './logo.jpeg';
+import './Signin.css';
 
 const SignIn = () => {
   let DESTINATION_URL = process.env.REACT_APP_DESTINATION_URL;
@@ -76,17 +77,17 @@ const SignIn = () => {
   getAllLectures();
 
   return (
-    <div>
-      <div style={{ width: "500px" }}>
-        <div style={{ position: "absolute", left: "200px"}}>
+          <div style = {{paddingTop: "0px", display: "flex", justifyContent: "center"}}>
+      <div style={{ width: "300px" }}>
+          <div style={{paddingTop: "10px", display: "flex", justifyContent: "center"}}>
           <img
           src={Logo}
-          height="100"
-          width="100"
+          height="140"
+          width="200"
         />
         </div>
         
-        <div style={{ padding: "50px", padding: "150px", paddingBottom:"120px"}}>
+          <div style={{paddingTop: "25px", paddingBottom: "25px", display: "flex", justifyContent: "center"}}>
           {isLoggedIn
           ? <Form>
               <Form.Group>
@@ -107,7 +108,8 @@ const SignIn = () => {
               </Form.Group>
 
               <Button
-                style={{ position: "absolute", left: "200px" }}
+                bsClass = "Button"
+                style={{display: "flex", justifyContent: "center", }}
                 variant="primary"
                 type="submit"
                 onClick={(e) => joinLecture(e)}
@@ -117,7 +119,7 @@ const SignIn = () => {
             </Form>
           : <Form>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
@@ -140,11 +142,11 @@ const SignIn = () => {
               </Form.Group>
 
               <Button
-                style={{ position: "absolute", left: "200px" }}
+                style={{display: "flex", justifyContent: "center"}}
                 variant="primary"
                 type="submit"
                 onClick={(e) => login(e)}
-              >
+              block>
                 Submit
               </Button>
             </Form>
@@ -153,10 +155,6 @@ const SignIn = () => {
         
       {result}  
       
-      <p
-        onClick={() => setShowBuild(!showBuildInfo)}>
-        Build Information
-      </p>
       {showBuildInfo &&
         <div>
           <p>Destination URL: {DESTINATION_URL}</p> 
